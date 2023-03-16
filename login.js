@@ -15,7 +15,7 @@ function validate(event) {
 
     if (userExists && rightPass) {
         alert("Login Successful");
-        window.location.href = "Exercise.html";
+        window.location.href = "Excercise.html";
     } else {
         alert(
         "Sorry, your username or password was incorrect. Please double-check your login information and try again."
