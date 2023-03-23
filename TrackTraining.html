@@ -78,8 +78,10 @@
             <option value="full">Full Body</option>
         </select>
 
-        <label for="Exercise">Exercise Name:</label>
-        <input type="text" id="exercise" name="exercise" required><br>
+        <label for="exercise">Exercise Name:</label>
+        <select id="exercise" name="exercise" required>
+            <option value="">Please select an option</option>
+        </select>
 
         <label for="Weight (Kg)">Weight(Kg):</label>
         <input type="number" id="weight" name="weight" required><br>
@@ -94,6 +96,39 @@
   </form>
 
   <script>
+    // Define the exercise options for each body part
+    const exerciseOptions = {
+        upper: ["Push-ups", "Back Rows"],
+        lower: ["Squats", "Deadlifts", "Lunges", "Leg Press"],
+        full: ["Burpees", "Jumping Jacks", "Mountain Climbers", "Plank"]
+    };
+
+    // Get references to the body part and exercise select elements
+    const bodyPartSelect = document.getElementById("bodyPart");
+    const exerciseSelect = document.getElementById("exercise");
+
+    // Define a function to update the exercise options when the body part is changed
+    function updateExerciseOptions() {
+        // Get the selected body part
+        const bodyPart = bodyPartSelect.value;
+
+        // Clear the existing exercise options
+        exerciseSelect.innerHTML = "<option value=''>Please select an option</option>";
+
+        // Add the new exercise options based on the selected body part
+        for (let i = 0; i < exerciseOptions[bodyPart].length; i++) {
+            const option = document.createElement("option");
+            option.value = exerciseOptions[bodyPart][i];
+            option.text = exerciseOptions[bodyPart][i];
+            exerciseSelect.add(option);
+        }
+    }
+
+    // Attach the updateExerciseOptions function to the body part select element's onchange event
+    bodyPartSelect.addEventListener("change", updateExerciseOptions);
+
+    // Call the updateExerciseOptions function once on page load to set the initial exercise options
+    updateExerciseOptions();
     const form = document.getElementById('myForm');
 
     form.addEventListener('submit', (event) => {
