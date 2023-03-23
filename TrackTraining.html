@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #232323;
+            background-color: #f2f2f2;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0062cc;
+        }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 5px #007bff;
+        }
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            background-color: #f2f2f2;
+            color: #232323;
+        }
+
+        select:focus, select:hover {
+            outline: none;
+            box-shadow: 0 0 5px #007bff;
+        }
+
+        select option {
+            background-color: #232323;
+            color: #fff;
+        }
+    </style>
+<head>
+  <title>Track Training</title>
+</head>
+<body>
+  <form id="myForm" action="TrackTraining.html">
+        <label for="Training date">Date:</label>
+        <input type="date" id="date" name="date" required><br>
+
+        <label for="bodyPart">Body Part:</label>
+        <select id="bodyPart" name="bodyPart" required>
+            <option value="">Please select an option</option>
+            <option value="upper">Upper Body</option>
+            <option value="lower">Lower Body</option>
+            <option value="full">Full Body</option>
+        </select>
+
+        <label for="Exercise">Exercise Name:</label>
+        <input type="text" id="exercise" name="exercise" required><br>
+
+        <label for="Weight (Kg)">Weight(Kg):</label>
+        <input type="number" id="weight" name="weight" required><br>
+
+        <label for="Sets">Set Number:</label>
+        <input type="number" id="sets" name="sets" required><br>
+
+        <label for="Reps">Reps per Set:</label>
+        <input type="number" id="reps" name="reps" required><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('myForm');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const data = {};
+      for (const [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+
+      saveData(data);
+    });
+
+    function saveData(data) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'TrackTraining.php', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+          alert('Data saved successfully');
+        }
+      };
+      xhr.send(JSON.stringify(data));
+    }
+  </script>
+</body>
+</html>
